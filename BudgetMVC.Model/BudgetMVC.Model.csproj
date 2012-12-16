@@ -45,6 +45,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityFramework\BudgetContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\BudgetEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\EntityWithCreationDate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\Expense.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\MonetaryEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\PeriodicExpense.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\PeriodicMonetaryEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\PeriodicRevenue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\Revenue.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
