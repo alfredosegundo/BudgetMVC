@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetMVC", "BudgetMVC\BudgetMVC.csproj", "{2E9EC749-FAFE-45B7-8757-530418714385}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetMVC.Tests", "BudgetMVC.Tests\BudgetMVC.Tests.csproj", "{B12F8350-C821-445D-9668-0C56ED62E891}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetMVC.Model", "BudgetMVC.Model\BudgetMVC.Model.csproj", "{0EBE66B4-8A60-436F-A03B-C93A266FA182}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E9EC749-FAFE-45B7-8757-530418714385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E9EC749-FAFE-45B7-8757-530418714385}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E9EC749-FAFE-45B7-8757-530418714385}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E9EC749-FAFE-45B7-8757-530418714385}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B12F8350-C821-445D-9668-0C56ED62E891}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B12F8350-C821-445D-9668-0C56ED62E891}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B12F8350-C821-445D-9668-0C56ED62E891}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B12F8350-C821-445D-9668-0C56ED62E891}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EBE66B4-8A60-436F-A03B-C93A266FA182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EBE66B4-8A60-436F-A03B-C93A266FA182}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EBE66B4-8A60-436F-A03B-C93A266FA182}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EBE66B4-8A60-436F-A03B-C93A266FA182}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
