@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using BudgetMVC.Model.EntityFramework;
 using BudgetMVC.Model.Entity;
+using BudgetMVC.Model.Entity.Enum;
 
 namespace BudgetMVC.ConsoleTest
 {
@@ -11,9 +12,18 @@ namespace BudgetMVC.ConsoleTest
     {
         static void Main(string[] args)
         {
-            using( var db = new BudgetContext())
+            using (var db = new BudgetContext())
             {
-                db.Expenses.Add(new Expense { Description = DateTime.Now.ToLongDateString(), Value = DateTime.Now.Second * 0.38});
+                db.PeriodicExpenses.Add(new PeriodicExpense
+                {
+                    FirstEvent = DateTime.Today,
+                    FinalEvent = DateTime.Today.AddDays(120),
+                    Description = "Periodic Expense " + Guid.NewGuid().ToString(),
+                    Periodicity = Periodicity.Monthly,
+                    Value = DateTime.Now.Second * 1.97
+                });
+
+                db.Expenses.Add(new Expense { Description = DateTime.Now.ToLongDateString(), Value = DateTime.Now.Second * 0.38 });
                 db.SaveChanges();
                 var query = from expense in db.Expenses
                             orderby expense.CreationDate

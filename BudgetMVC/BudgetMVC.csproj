@@ -126,6 +126,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -134,6 +135,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\foundation\app.css" />
+    <Content Include="Content\foundation\foundation.css" />
+    <Content Include="Content\images\foundation\orbit\bullets.jpg" />
+    <Content Include="Content\images\foundation\orbit\left-arrow-small.png" />
+    <Content Include="Content\images\foundation\orbit\left-arrow.png" />
+    <Content Include="Content\images\foundation\orbit\loading.gif" />
+    <Content Include="Content\images\foundation\orbit\mask-black.png" />
+    <Content Include="Content\images\foundation\orbit\pause-black.png" />
+    <Content Include="Content\images\foundation\orbit\right-arrow-small.png" />
+    <Content Include="Content\images\foundation\orbit\right-arrow.png" />
+    <Content Include="Content\images\foundation\orbit\rotator-black.png" />
+    <Content Include="Content\images\foundation\orbit\timer-black.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -162,7 +175,28 @@
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Foundation_readme.txt" />
     <Content Include="Global.asax" />
+    <Content Include="humans.txt" />
+    <Content Include="robots.txt" />
+    <Content Include="Scripts\foundation\app.js" />
+    <Content Include="Scripts\foundation\foundation.min.js" />
+    <Content Include="Scripts\foundation\jquery.foundation.accordion.js" />
+    <Content Include="Scripts\foundation\jquery.foundation.alerts.js" />
+    <Content Include="Scripts\foundation\jquery.foundation.buttons.js" />
+    <Content Include="Scripts\foundation\jquery.foundation.clearing.js" />
+    <Content Include="Scripts\foundation\jquery.foundation.forms.js" />
+    <Content Include="Scripts\foundation\jquery.foundation.joyride.js" />
+    <Content Include="Scripts\foundation\jquery.foundation.magellan.js" />
+    <Content Include="Scripts\foundation\jquery.foundation.mediaQueryToggle.js" />
+    <Content Include="Scripts\foundation\jquery.foundation.navigation.js" />
+    <Content Include="Scripts\foundation\jquery.foundation.orbit.js" />
+    <Content Include="Scripts\foundation\jquery.foundation.reveal.js" />
+    <Content Include="Scripts\foundation\jquery.foundation.tabs.js" />
+    <Content Include="Scripts\foundation\jquery.foundation.tooltips.js" />
+    <Content Include="Scripts\foundation\jquery.foundation.topbar.js" />
+    <Content Include="Scripts\foundation\jquery.placeholder.js" />
+    <Content Include="Scripts\foundation\modernizr.foundation.js" />
     <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
     <Content Include="Scripts\jquery-1.6.2.min.js" />
@@ -185,7 +219,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\OLD_Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\aspNetHome.png" />
@@ -213,7 +247,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\OLD_Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -230,6 +264,27 @@
       <Project>{0EBE66B4-8A60-436F-A03B-C93A266FA182}</Project>
       <Name>BudgetMVC.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Expenses\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Expenses\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Expenses\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Expenses\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Expenses\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Foundation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

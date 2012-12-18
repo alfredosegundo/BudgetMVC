@@ -7,6 +7,14 @@ namespace BudgetMVC
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new StyleBundle("~/Content/foundation/css").Include(
+                       "~/Content/foundation/foundation.css",
+                       "~/Content/foundation/app.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/foundation").Include(
+                      "~/Scripts/foundation/jquery.*",
+                      "~/Scripts/foundation/app.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-1.*"));
 
