@@ -14,10 +14,16 @@ namespace BudgetMVC.Controllers
     {
         private BudgetContext db = new BudgetContext();
 
+        //
+        // GET: /Expenses/
+
         public ActionResult Index()
         {
             return View(db.Expenses.ToList());
         }
+
+        //
+        // GET: /Expenses/Details/5
 
         public ActionResult Details(long id = 0)
         {
@@ -29,11 +35,16 @@ namespace BudgetMVC.Controllers
             return View(expense);
         }
 
+        //
+        // GET: /Expenses/Create
+
         public ActionResult Create()
         {
             return View();
         }
 
+        //
+        // POST: /Expenses/Create
 
         [HttpPost]
         public ActionResult Create(Expense expense)
@@ -48,6 +59,8 @@ namespace BudgetMVC.Controllers
             return View(expense);
         }
 
+        //
+        // GET: /Expenses/Edit/5
 
         public ActionResult Edit(long id = 0)
         {
@@ -59,6 +72,8 @@ namespace BudgetMVC.Controllers
             return View(expense);
         }
 
+        //
+        // POST: /Expenses/Edit/5
 
         [HttpPost]
         public ActionResult Edit(Expense expense)
@@ -72,6 +87,8 @@ namespace BudgetMVC.Controllers
             return View(expense);
         }
 
+        //
+        // GET: /Expenses/Delete/5
 
         public ActionResult Delete(long id = 0)
         {
@@ -83,6 +100,8 @@ namespace BudgetMVC.Controllers
             return View(expense);
         }
 
+        //
+        // POST: /Expenses/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(long id)

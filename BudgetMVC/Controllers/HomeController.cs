@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Collections;
+using BudgetMVC.Model.Entity;
 
 namespace BudgetMVC.Controllers
 {
@@ -27,6 +29,14 @@ namespace BudgetMVC.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public JsonResult InitialData()
+        {
+            var dummyExpense = new Expense() { Description = "Descrição", CreationDate = DateTime.Now, Value = 1.9 };
+            var dummyRevenue = new Revenue() { Description = "Descrição", CreationDate = DateTime.Now, Value = 333.90 };
+            var model = new { expenses = new List<Expense>() { dummyExpense }, revenues = new List<Revenue>() { dummyRevenue } };
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
 }

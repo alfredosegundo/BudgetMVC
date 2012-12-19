@@ -16,7 +16,7 @@ namespace BudgetMVC
                       "~/Scripts/foundation/app.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-1.*"));
+                        "~/Scripts/jquery-1.8*"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui*"));
@@ -24,6 +24,9 @@ namespace BudgetMVC
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
+
+            bundles.Add(new StyleBundle("~/bundles/ko").Include("~/Scripts/knockout-2.*"));
+            bundles.Add(new StyleBundle("~/bundles/app").Include("~/Scripts/app.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
