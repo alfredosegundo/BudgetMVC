@@ -43,8 +43,8 @@ function IndexViewModel() {
         self.populate(self.currentMonth, self.currentYear);
     }
 
-    self.populate = function (month, year) {
-        $.getJSON("Home/InitialData",{month: month,year: year},
+    self.populate = function populate(month, year) {
+        $.getJSON("Home/InitialData", { month: month, year: year },
             function (data) {
                 data = JSON.parse(data);
                 self.revenues(data.revenues);
@@ -52,12 +52,13 @@ function IndexViewModel() {
             });
     }
 
-    self.currentMonthName = ko.computed(function () {
+    self.currentMonthName = ko.computed(function computeMonthName() {
         return getMonthName(self.currentMonth());
     });
 };
 var viewModel = new IndexViewModel();
 ko.applyBindings(viewModel);
+viewModel.populate(viewModel.currentMonth, viewModel.currentYear);
 
 key('left', viewModel.goPreviousMonth);
 key('right', viewModel.goNextMonth);

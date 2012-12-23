@@ -198,6 +198,7 @@
     <Content Include="Scripts\foundation\jquery.placeholder.js" />
     <Content Include="Scripts\foundation\modernizr.foundation.js" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\keymaster.min.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\util\date.helper.js" />
@@ -222,7 +223,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\OLD_Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\aspNetHome.png" />
