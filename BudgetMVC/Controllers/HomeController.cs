@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Collections;
 using BudgetMVC.Model.Entity;
+using Newtonsoft.Json;
 
 namespace BudgetMVC.Controllers
 {
@@ -36,7 +37,10 @@ namespace BudgetMVC.Controllers
             var dummyExpense = new Expense() { Description = "Descrição", CreationDate = DateTime.Now, Value = 1.9 };
             var dummyRevenue = new Revenue() { Description = "Descrição", CreationDate = DateTime.Now, Value = 333.90 };
             var model = new { expenses = new List<Expense>() { dummyExpense }, revenues = new List<Revenue>() { dummyRevenue } };
-            return Json(model, JsonRequestBehavior.AllowGet);
+            var result = Json(model);
+            result.Data = JsonConvert.SerializeObject(model);
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
         }
     }
 }

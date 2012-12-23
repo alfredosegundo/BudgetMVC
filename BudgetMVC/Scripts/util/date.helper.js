@@ -19,6 +19,10 @@ function getCurrentMonth() {
     return new Date().getMonth();
 }
 
+function getCurrentYear() {
+    return new Date().getFullYear();
+}
+
 function getTodayMonthName() {
     var todayMonth = getCurrentMonth();
     return GetMonthName(todayMonth);

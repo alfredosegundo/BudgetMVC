@@ -1,12 +1,12 @@
-﻿function Revenue(Description, CreationDate, Value) {
-    this.Description = Description;
-    this.CreationDate = CreationDate;
-    this.Value = Value;
+﻿function Monetary(json) {
+    this.Description = json.Description;
+    this.CreationDate = new Date(json.CreationDate).toLocaleDateString();
+    this.Value = json.Value;
 }
 
 function GetData(month) {
     var result;
-    $.getJSON(CONTEXT + "/Home/InitialData", function (data) {
+    $.getJSON("Home/InitialData", function (data) {
         result = data;
     });
     return result;
@@ -15,19 +15,49 @@ function GetData(month) {
 function IndexViewModel() {
     var self = this;
     self.currentMonth = ko.observable(getCurrentMonth());
+    self.currentYear = ko.observable(getCurrentYear());
     self.revenues = ko.observableArray();
     self.expenses = ko.observableArray();
+
+    self.goPreviousMonth = function goPreviousMonth() {
+        var previousMonth = self.currentMonth() - 1;
+        if (previousMonth >= 0) {
+            self.currentMonth(previousMonth);
+        }
+        else {
+            self.currentMonth(11);
+            self.currentYear(self.currentYear() - 1);
+        }
+        self.populate(self.currentMonth, self.currentYear);
+    }
+
+    self.goNextMonth = function goNextMonth() {
+        var nextMonth = self.currentMonth() + 1;
+        if (nextMonth >= 0 && nextMonth <= 11) {
+            self.currentMonth(nextMonth);
+        }
+        else {
+            self.currentMonth(0);
+            self.currentYear(self.currentYear() + 1);
+        }
+        self.populate(self.currentMonth, self.currentYear);
+    }
+
+    self.populate = function (month, year) {
+        $.getJSON("Home/InitialData",{month: month,year: year},
+            function (data) {
+                data = JSON.parse(data);
+                self.revenues(data.revenues);
+                self.expenses(data.expenses);
+            });
+    }
 
     self.currentMonthName = ko.computed(function () {
         return getMonthName(self.currentMonth());
     });
-
-    self.populate = function () {
-        $.getJSON(CONTEXT + "/Home/InitialData", function (data) {
-            self.revenues(data.revenues);
-            self.expenses(data.expenses);
-        });
-    }
 };
+var viewModel = new IndexViewModel();
+ko.applyBindings(viewModel);
 
-ko.applyBindings(new IndexViewModel());
+key('left', viewModel.goPreviousMonth);
+key('right', viewModel.goNextMonth);
