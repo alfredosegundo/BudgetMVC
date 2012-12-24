@@ -6,11 +6,14 @@ using System.Web.Mvc;
 using System.Collections;
 using BudgetMVC.Model.Entity;
 using Newtonsoft.Json;
+using BudgetMVC.Model.EntityFramework;
 
 namespace BudgetMVC.Controllers
 {
     public class HomeController : Controller
     {
+        private BudgetContext db = new BudgetContext();
+        
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to kick-start your ASP.NET MVC application.";
@@ -32,11 +35,11 @@ namespace BudgetMVC.Controllers
             return View();
         }
 
-        public JsonResult InitialData()
+        public JsonResult InitialData(int month, int year)
         {
-            var dummyExpense = new Expense() { Description = "Descrição", CreationDate = DateTime.Now, Value = 1.9 };
-            var dummyRevenue = new Revenue() { Description = "Descrição", CreationDate = DateTime.Now, Value = 333.90 };
-            var model = new { expenses = new List<Expense>() { dummyExpense }, revenues = new List<Revenue>() { dummyRevenue } };
+            var expenses = db.Expenses.Where(expense => expense.CreationDate.Year == year && expense.CreationDate.Month == month).ToList();
+            var revenues = db.Revenues.Where(revenue => revenue.CreationDate.Year == year && revenue.CreationDate.Month == month).ToList();
+            var model = new { expenses, revenues };
             var result = Json(model);
             result.Data = JsonConvert.SerializeObject(model);
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;

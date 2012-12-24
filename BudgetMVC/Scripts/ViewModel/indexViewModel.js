@@ -44,11 +44,18 @@ function IndexViewModel() {
     }
 
     self.populate = function populate(month, year) {
+        self.revenues([]);
+        self.expenses([]);
+        month = parseInt(month()) + 1;
         $.getJSON("Home/InitialData", { month: month, year: year },
             function (data) {
                 data = JSON.parse(data);
-                self.revenues(data.revenues);
-                self.expenses(data.expenses);
+                for (var index in data.revenues) {
+                    self.revenues.push(new Monetary(data.revenues[index]));
+                }
+                for (var index in data.expenses) {
+                    self.expenses.push(new Monetary(data.expenses[index]));
+                }
             });
     }
 
