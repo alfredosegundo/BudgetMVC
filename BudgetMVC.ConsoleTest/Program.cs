@@ -14,15 +14,6 @@ namespace BudgetMVC.ConsoleTest
         {
             using (var db = new BudgetContext())
             {
-                db.PeriodicExpenses.Add(new PeriodicExpense
-                {
-                    FirstEvent = DateTime.Today,
-                    FinalEvent = DateTime.Today.AddDays(120),
-                    Description = "Periodic Expense " + Guid.NewGuid().ToString(),
-                    Periodicity = Periodicity.Monthly,
-                    Value = DateTime.Now.Second * 1.97
-                });
-
                 db.Expenses.Add(new Expense { Description = DateTime.Now.ToLongDateString(), Value = DateTime.Now.Second * 0.38 });
                 db.SaveChanges();
                 var query = from expense in db.Expenses
