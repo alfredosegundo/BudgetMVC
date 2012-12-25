@@ -4,14 +4,6 @@
     this.Value = json.Value;
 }
 
-function GetData(month) {
-    var result;
-    $.getJSON("Home/InitialData", function (data) {
-        result = data;
-    });
-    return result;
-}
-
 function IndexViewModel() {
     var self = this;
     self.currentMonth = ko.observable(getCurrentMonth());
@@ -28,7 +20,7 @@ function IndexViewModel() {
             self.currentMonth(11);
             self.currentYear(self.currentYear() - 1);
         }
-        self.populate(self.currentMonth, self.currentYear);
+        self.populate(self.currentMonth(), self.currentYear());
     }
 
     self.goNextMonth = function goNextMonth() {
@@ -40,13 +32,13 @@ function IndexViewModel() {
             self.currentMonth(0);
             self.currentYear(self.currentYear() + 1);
         }
-        self.populate(self.currentMonth, self.currentYear);
+        self.populate(self.currentMonth(), self.currentYear());
     }
 
     self.populate = function populate(month, year) {
         self.revenues([]);
         self.expenses([]);
-        month = parseInt(month()) + 1;
+        month = parseInt(month) + 1;
         $.getJSON("Home/InitialData", { month: month, year: year },
             function (data) {
                 data = JSON.parse(data);
@@ -59,13 +51,37 @@ function IndexViewModel() {
             });
     }
 
+    self.newExpense = function newExpense() {
+        $("#newRevenues").dialog('open');
+    }
+
     self.currentMonthName = ko.computed(function computeMonthName() {
         return getMonthName(self.currentMonth());
     });
 };
 var viewModel = new IndexViewModel();
 ko.applyBindings(viewModel);
-viewModel.populate(viewModel.currentMonth, viewModel.currentYear);
+function populate() {
+    viewModel.populate(viewModel.currentMonth(), viewModel.currentYear());
+}
+populate();
+
+$("#newRevenues").dialog({
+    autoOpen: false,
+    modal: true,
+    buttons: {
+        "Save": function () {
+            $.post('Revenues/Create', $("#newRevenues form").serialize(), populate);
+            $(this).dialog("close");
+        },
+        Cancel: function () {
+            $(this).dialog("close");
+        }
+    },
+    close: function () {
+        $("#newRevenues input").val("").removeClass("ui-state-error");
+    }
+});
 
 key('left', viewModel.goPreviousMonth);
 key('right', viewModel.goNextMonth);
