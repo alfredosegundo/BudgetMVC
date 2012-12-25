@@ -7,6 +7,9 @@ namespace BudgetMVC
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new StyleBundle("~/bundles/spin").Include(
+                       "~/Scripts/spin.*"));
+
             bundles.Add(new StyleBundle("~/Content/foundation/css").Include(
                        "~/Content/foundation/foundation.css",
                        "~/Content/foundation/app.css"));
@@ -34,18 +37,7 @@ namespace BudgetMVC
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/smoothness/css").Include(
-                        "~/Content/themes/smoothness/jquery.ui.core.css",
-                        "~/Content/themes/smoothness/jquery.ui.resizable.css",
-                        "~/Content/themes/smoothness/jquery.ui.selectable.css",
-                        "~/Content/themes/smoothness/jquery.ui.accordion.css",
-                        "~/Content/themes/smoothness/jquery.ui.autocomplete.css",
-                        "~/Content/themes/smoothness/jquery.ui.button.css",
-                        "~/Content/themes/smoothness/jquery.ui.dialog.css",
-                        "~/Content/themes/smoothness/jquery.ui.slider.css",
-                        "~/Content/themes/smoothness/jquery.ui.tabs.css",
-                        "~/Content/themes/smoothness/jquery.ui.datepicker.css",
-                        "~/Content/themes/smoothness/jquery.ui.progressbar.css",
-                        "~/Content/themes/smoothness/jquery.ui.theme.css"));
+                        "~/Content/themes/smoothness/jquery-ui-1.9.2.custom*"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

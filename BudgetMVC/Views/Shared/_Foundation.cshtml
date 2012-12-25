@@ -22,7 +22,9 @@
 </head>
 <body>
     @RenderBody()
-
+    <div id="loading" class="loading ui-widget-overlay"></div>
+    
+    @Scripts.Render("~/bundles/spin")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/ko")

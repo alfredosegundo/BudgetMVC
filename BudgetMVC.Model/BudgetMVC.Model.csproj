@@ -45,12 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\IncomeBusiness.cs" />
+    <Compile Include="DTO\InitialData.cs" />
     <Compile Include="EntityFramework\BudgetContext.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Entity\BudgetEntity.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Entity\Contribution.cs" />
+    <Compile Include="Entity\ContributionFactor.cs" />
+    <Compile Include="Entity\Contributor.cs" />
     <Compile Include="Entity\EntityWithCreationDate.cs">
       <SubType>Code</SubType>
     </Compile>

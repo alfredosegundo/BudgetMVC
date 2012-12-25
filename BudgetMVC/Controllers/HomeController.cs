@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Collections;
-using BudgetMVC.Model.Entity;
-using Newtonsoft.Json;
+﻿using System.Web.Mvc;
+using BudgetMVC.Model.Business;
 using BudgetMVC.Model.EntityFramework;
+using Newtonsoft.Json;
 
 namespace BudgetMVC.Controllers
 {
@@ -37,9 +32,9 @@ namespace BudgetMVC.Controllers
 
         public JsonResult InitialData(int month, int year)
         {
-            var expenses = db.Expenses.Where(expense => expense.CreationDate.Year == year && expense.CreationDate.Month == month).ToList();
-            var revenues = db.Revenues.Where(revenue => revenue.CreationDate.Year == year && revenue.CreationDate.Month == month).ToList();
-            var model = new { expenses, revenues };
+            var incomeBusiness = new IncomeBusiness(db);
+            var initialData = incomeBusiness.GetInitiaData(month, year);
+            var model = new { initialData.expenses, initialData.revenues, initialData.monthBalance };
             var result = Json(model);
             result.Data = JsonConvert.SerializeObject(model);
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;

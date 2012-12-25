@@ -8,6 +8,7 @@ function IndexViewModel() {
     var self = this;
     self.currentMonth = ko.observable(getCurrentMonth());
     self.currentYear = ko.observable(getCurrentYear());
+    self.currentMonthBalance = ko.observable();
     self.revenues = ko.observableArray();
     self.expenses = ko.observableArray();
 
@@ -38,25 +39,42 @@ function IndexViewModel() {
     self.populate = function populate(month, year) {
         self.revenues([]);
         self.expenses([]);
+        self.currentMonthBalance(0.0);
         month = parseInt(month) + 1;
         $.getJSON("Home/InitialData", { month: month, year: year },
             function (data) {
                 data = JSON.parse(data);
-                for (var index in data.revenues) {
-                    self.revenues.push(new Monetary(data.revenues[index]));
+                for (var revenuesIndex in data.revenues) {
+                    self.revenues.push(new Monetary(data.revenues[revenuesIndex]));
                 }
-                for (var index in data.expenses) {
-                    self.expenses.push(new Monetary(data.expenses[index]));
+                for (var expensesIndex in data.expenses) {
+                    self.expenses.push(new Monetary(data.expenses[expensesIndex]));
                 }
+                self.currentMonthBalance(data.monthBalance);
             });
     }
 
     self.newExpense = function newExpense() {
+        $("#newExpenses").dialog('open');
+    }
+
+    self.newRenevue = function newRenevue() {
         $("#newRevenues").dialog('open');
     }
 
     self.currentMonthName = ko.computed(function computeMonthName() {
         return getMonthName(self.currentMonth());
+    });
+
+    ko.computed(function () {
+        if (self.currentMonthBalance() >= 0.0) {
+            $('div.balance span').addClass('positive');
+            $('div.balance span').removeClass('negative');
+        }
+        else {
+            $('div.balance span').addClass('negative');
+            $('div.balance span').removeClass('positive');            
+        }
     });
 };
 var viewModel = new IndexViewModel();
@@ -80,8 +98,30 @@ $("#newRevenues").dialog({
     },
     close: function () {
         $("#newRevenues input").val("").removeClass("ui-state-error");
+    },
+    create: function (event, ui) {
+        $(this).parent('.ui-dialog').wrap('<div class="smoothness" />');
     }
 });
+
+$("#newExpenses").dialog({
+    autoOpen: false,
+    modal: true,
+    buttons: {
+        "Save": function () {
+            $.post('Expenses/Create', $("#newExpenses form").serialize(), populate);
+            $(this).dialog("close");
+        },
+        Cancel: function () {
+            $(this).dialog("close");
+        }
+    },
+    close: function () {
+        $("#newExpenses input").val("").removeClass("ui-state-error");
+    }
+});
+
+$("#newRevenues #Value").spinner();
 
 key('left', viewModel.goPreviousMonth);
 key('right', viewModel.goNextMonth);

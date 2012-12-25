@@ -12,7 +12,24 @@
 /* -----------------------------------------
    Shared Styles
 ----------------------------------------- */
+.loading
+{
+    background: #333;
+    color: #fff;
+    position: relative;
+    margin: 0 20px 20px 0;
+}
 
+.positive
+{
+    color: Green;
+}
+
+.negative
+{
+    font-weight: bold;
+    color: Red;
+}
 
 
 /* -----------------------------------------

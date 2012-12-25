@@ -10,6 +10,5 @@ namespace BudgetMVC.Model.Entity
     {
         public DateTime FirstEvent { get; set; }
         public DateTime FinalEvent { get; set; }
-        public Periodicity Periodicity { get; set; }
     }
 }

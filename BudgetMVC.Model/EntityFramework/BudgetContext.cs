@@ -14,6 +14,9 @@ namespace BudgetMVC.Model.EntityFramework
         public DbSet<PeriodicExpense> PeriodicExpenses { get; set; }
         public DbSet<Revenue> Revenues { get; set; }
         public DbSet<PeriodicRevenue> PeriodicRevenues { get; set; }
+        public DbSet<Contribution> Contributions { get; set; }
+        public DbSet<ContributionFactor> ContributionFactors { get; set; }
+        public DbSet<Contributor> Contributors { get; set; }
 
         public override int SaveChanges()
         {

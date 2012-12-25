@@ -10,6 +10,7 @@
 <div class="row">
     <div class="twelve columns">
         <div class="row">
+        <div class="six columns centered">
             <h3>
                 Monthly Budget -
                 <!--ko text: currentMonthName -->
@@ -18,86 +19,118 @@
                 <!--/ko-->
             </h3>
         </div>
-        <div class="row">
-            <div class="six columns">
-                <div class="row">
-                    <div class="ten columns">
-                        <h4>
-                            Revenue</h4>
-                    </div>
-                    <div class="two columns">
-                        <span><a href="#" class="right" data-bind="click: newExpense">New</a></span>
+        </div>
+        <div class="row content">
+            <div class="twelve columns">
+                <div class="row balance">
+                    <div class="four columns centered">
+                        <span class="subheader">Balance: </span><span class="subheader" data-bind="text: currentMonthBalance">
+                        </span>
                     </div>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                Description
-                            </th>
-                            <th>
-                                Value
-                            </th>
-                            <th>
-                                Creation Date
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody data-bind="foreach: revenues">
-                        <tr>
-                            <td data-bind="text: Description">
-                            </td>
-                            <td data-bind="text: Value">
-                            </td>
-                            <td data-bind="text: CreationDate">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="six columns">
-                <h4>
-                    Expenses</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                Description
-                            </th>
-                            <th>
-                                Value
-                            </th>
-                            <th>
-                                Creation Date
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody data-bind="foreach: expenses">
-                        <tr>
-                            <td data-bind="text: Description">
-                            </td>
-                            <td data-bind="text: Value">
-                            </td>
-                            <td data-bind="text: CreationDate">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="row">
+                    <div class="six columns">
+                        <div class="row">
+                            <div class="ten columns">
+                                <h4>
+                                    Revenue</h4>
+                            </div>
+                            <div class="two columns">
+                                <a href="#" class="tiny button" data-bind="click: newRenevue">New</a>
+                            </div>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Value
+                                    </th>
+                                    <th>
+                                        Creation Date
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: revenues">
+                                <tr>
+                                    <td data-bind="text: Description">
+                                    </td>
+                                    <td data-bind="text: Value">
+                                    </td>
+                                    <td data-bind="text: CreationDate">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="six columns">
+                        <div class="row">
+                            <div class="ten columns">
+                                <h4>
+                                    Expenses</h4>
+                            </div>
+                            <div class="two columns">
+                                <a href="#" class="tiny button" data-bind="click: newExpense">New</a>
+                            </div>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Value
+                                    </th>
+                                    <th>
+                                        Creation Date
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: expenses">
+                                <tr>
+                                    <td data-bind="text: Description">
+                                    </td>
+                                    <td data-bind="text: Value">
+                                    </td>
+                                    <td data-bind="text: CreationDate">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div id="newRevenues" title="Create new Revenue">
+<div id="newRevenues" title="Create new Revenue" class="smoothness">
     <p class="validateTips">
         All form fields are required.</p>
     <form>
     <fieldset>
         <label for="Description">
             Description</label>
-        <input type="text" name="Description" id="Description" class="text ui-widget-content ui-corner-all" />
+        <input type="text" name="Description" id="RevenueDescription" />
         <label for="Value">
             Value</label>
-        <input type="text" name="Value" id="Value" value="" class="text ui-widget-content ui-corner-all" />
+        <input type="text" name="Value" id="RevenueValue" value="" />
+    </fieldset>
+    </form>
+</div>
+<div id="newExpenses" title="Create new Expenses">
+    <p class="validateTips">
+        All form fields are required.</p>
+    <form>
+    <fieldset>
+        <label for="Description">
+            Description</label>
+        <input type="text" name="Description" id="ExpenseDescription" />
+        <label for="Value">
+            Value</label>
+        <input type="text" name="Value" id="ExpenseValue" value="" />
     </fieldset>
     </form>
 </div>
