@@ -21,7 +21,7 @@ function IndexViewModel() {
             self.currentMonth(11);
             self.currentYear(self.currentYear() - 1);
         }
-        self.populate(self.currentMonth(), self.currentYear());
+        self.populate();
     }
 
     self.goNextMonth = function goNextMonth() {
@@ -33,15 +33,14 @@ function IndexViewModel() {
             self.currentMonth(0);
             self.currentYear(self.currentYear() + 1);
         }
-        self.populate(self.currentMonth(), self.currentYear());
+        self.populate();
     }
 
-    self.populate = function populate(month, year) {
+    self.populate = function populate() {
         self.revenues([]);
         self.expenses([]);
         self.currentMonthBalance(0.0);
-        month = parseInt(month) + 1;
-        $.getJSON("Home/InitialData", { month: month, year: year },
+        $.getJSON("Home/InitialData", { month: self.currentMonth() + 1, year: self.currentYear() },
             function (data) {
                 data = JSON.parse(data);
                 for (var revenuesIndex in data.revenues) {
@@ -52,14 +51,26 @@ function IndexViewModel() {
                 }
                 self.currentMonthBalance(data.monthBalance);
             });
-    }
+    };
 
     self.newExpense = function newExpense() {
-        $("#newExpenses").dialog('open');
+        $("#newExpenses").reveal();
+        $("#newExpenses form input:first").focus();
+    }
+
+    self.saveExpense = function saveExpense() {
+        $.post('Expenses/Create', $("#newExpenses form").serialize(), function () { self.populate(); });
+        $("#newExpenses").trigger('reveal:close');
     }
 
     self.newRenevue = function newRenevue() {
-        $("#newRevenues").dialog('open');
+        $("#newRevenues").reveal();
+        $("#newRevenues form input:first").focus();
+    }
+
+    self.saveRevenue = function saveRevenue() {
+        $.post('Revenues/Create', $("#newRevenues form").serialize(), function () { self.populate(); });
+        $("#newRevenues").trigger('reveal:close');
     }
 
     self.currentMonthName = ko.computed(function computeMonthName() {
@@ -79,49 +90,8 @@ function IndexViewModel() {
 };
 var viewModel = new IndexViewModel();
 ko.applyBindings(viewModel);
-function populate() {
-    viewModel.populate(viewModel.currentMonth(), viewModel.currentYear());
-}
-populate();
-
-$("#newRevenues").dialog({
-    autoOpen: false,
-    modal: true,
-    buttons: {
-        "Save": function () {
-            $.post('Revenues/Create', $("#newRevenues form").serialize(), populate);
-            $(this).dialog("close");
-        },
-        Cancel: function () {
-            $(this).dialog("close");
-        }
-    },
-    close: function () {
-        $("#newRevenues input").val("").removeClass("ui-state-error");
-    },
-    create: function (event, ui) {
-        $(this).parent('.ui-dialog').wrap('<div class="smoothness" />');
-    }
-});
-
-$("#newExpenses").dialog({
-    autoOpen: false,
-    modal: true,
-    buttons: {
-        "Save": function () {
-            $.post('Expenses/Create', $("#newExpenses form").serialize(), populate);
-            $(this).dialog("close");
-        },
-        Cancel: function () {
-            $(this).dialog("close");
-        }
-    },
-    close: function () {
-        $("#newExpenses input").val("").removeClass("ui-state-error");
-    }
-});
-
-$("#newRevenues #Value").spinner();
+viewModel.populate();
+// 
 
 key('left', viewModel.goPreviousMonth);
 key('right', viewModel.goNextMonth);

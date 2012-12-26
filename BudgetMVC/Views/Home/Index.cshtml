@@ -10,15 +10,15 @@
 <div class="row">
     <div class="twelve columns">
         <div class="row">
-        <div class="six columns centered">
-            <h3>
-                Monthly Budget -
-                <!--ko text: currentMonthName -->
-                <!--/ko-->
-                <!--ko text: currentYear -->
-                <!--/ko-->
-            </h3>
-        </div>
+            <div class="six columns centered">
+                <h3>
+                    Monthly Budget -
+                    <!--ko text: currentMonthName -->
+                    <!--/ko-->
+                    <!--ko text: currentYear -->
+                    <!--/ko-->
+                </h3>
+            </div>
         </div>
         <div class="row content">
             <div class="twelve columns">
@@ -35,7 +35,7 @@
                                 <h4>
                                     Revenue</h4>
                             </div>
-                            <div class="two columns">
+                            <div class="two columns centered">
                                 <a href="#" class="tiny button" data-bind="click: newRenevue">New</a>
                             </div>
                         </div>
@@ -106,9 +106,9 @@
         </div>
     </div>
 </div>
-<div id="newRevenues" title="Create new Revenue" class="smoothness">
+<div id="newRevenues" class="reveal-modal">
     <p class="validateTips">
-        All form fields are required.</p>
+        Create new Revenue.</p>
     <form>
     <fieldset>
         <label for="Description">
@@ -119,10 +119,11 @@
         <input type="text" name="Value" id="RevenueValue" value="" />
     </fieldset>
     </form>
+    <a href="#" class="tiny button" data-bind="click: saveRevenue">Save</a>
 </div>
-<div id="newExpenses" title="Create new Expenses">
+<div id="newExpenses" class="reveal-modal">
     <p class="validateTips">
-        All form fields are required.</p>
+        Create new Expenses.</p>
     <form>
     <fieldset>
         <label for="Description">
@@ -133,6 +134,7 @@
         <input type="text" name="Value" id="ExpenseValue" value="" />
     </fieldset>
     </form>
+    <a href="#" class="tiny button" data-bind="click: saveExpense">Save</a>
 </div>
 @section Scripts {
     @Scripts.Render("~/Scripts/util/date.helper.js")

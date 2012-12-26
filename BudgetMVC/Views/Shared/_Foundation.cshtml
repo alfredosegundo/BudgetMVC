@@ -15,7 +15,6 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     
     @Styles.Render("~/Content/foundation/css")
-    @Styles.Render("~/Content/themes/smoothness/css")
 
     @RenderSection("head", required: false)
     @Scripts.Render("~/bundles/modernizr")
@@ -25,10 +24,8 @@
     <div id="loading" class="loading ui-widget-overlay"></div>
     
     @Scripts.Render("~/bundles/spin")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryui")
-    @Scripts.Render("~/bundles/ko")
     @Scripts.Render("~/bundles/foundation")
+    @Scripts.Render("~/bundles/ko")
     @Scripts.Render("~/bundles/app")
 
     @RenderSection("scripts", required: false)
