@@ -54,7 +54,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Entity\Contribution.cs" />
-    <Compile Include="Entity\ContributionFactor.cs" />
     <Compile Include="Entity\Contributor.cs" />
     <Compile Include="Entity\EntityWithCreationDate.cs">
       <SubType>Code</SubType>

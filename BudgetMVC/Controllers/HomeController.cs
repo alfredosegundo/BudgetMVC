@@ -33,7 +33,7 @@ namespace BudgetMVC.Controllers
         public JsonResult InitialData(int month, int year)
         {
             var incomeBusiness = new IncomeBusiness(db);
-            var initialData = incomeBusiness.GetInitiaData(month, year);
+            var initialData = incomeBusiness.GetInitialData(month, year);
             var model = new { initialData.expenses, initialData.revenues, initialData.monthBalance };
             var result = Json(model);
             result.Data = JsonConvert.SerializeObject(model);
