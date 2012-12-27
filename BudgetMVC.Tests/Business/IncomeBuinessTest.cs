@@ -13,23 +13,19 @@ namespace BudgetMVC.Tests.Business
     {
         private BudgetContext db;
         private IncomeBusiness business;
-        private int month;
-        private int year;
 
         [SetUp]
         public void SetUp()
         {
             db = new BudgetContext();
             db.Database.Delete();
-            month = DateTime.Today.Month;
-            year = DateTime.Today.Year;
             business = new IncomeBusiness(db);
         }
 
         [Test]
         public void InitialData_Empty()
         {
-            var data = business.GetInitialData(month, year);
+            var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
             Assert.AreEqual(0, data.monthBalance);
             Assert.AreEqual(0, data.expenses.Count());
             Assert.AreEqual(0, data.revenues.Count());
@@ -41,7 +37,7 @@ namespace BudgetMVC.Tests.Business
             InsertRevenue(120.0);
             InsertExpense(73.48);
             Save();
-            var data = business.GetInitialData(month, year);
+            var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
             Assert.AreEqual(120 - 73.48, data.monthBalance);
             Assert.AreEqual(120, GetRevenueSum(ref data));
             Assert.AreEqual(73.48, GetExpensesSum(ref data));
@@ -53,18 +49,18 @@ namespace BudgetMVC.Tests.Business
             InsertRevenue(35.98);
             InsertExpense(73.48);
             Save();
-            var data = business.GetInitialData(month, year);
+            var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
             Assert.AreEqual(35.98 - 73.48, data.monthBalance);
             Assert.AreEqual(35.98, GetRevenueSum(ref data));
             Assert.AreEqual(73.48, GetExpensesSum(ref data));
         }
 
         [Test]
-        public void InitialData_WithPeriodicRevenue()
+        public void InitialData_WithPeriodicRevenue_ValidPeriodRevenue()
         {
             InsertContribution(DateTime.Today.AddMonths(-1), 1560, 0.78);
             Save();
-            var data = business.GetInitialData(month, year);
+            var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
             Assert.AreEqual(1560 * 0.78, data.monthBalance);
             Assert.AreEqual(1560 * 0.78, GetRevenueSum(ref data));
             Assert.AreEqual(0, GetExpensesSum(ref data));
@@ -73,9 +69,9 @@ namespace BudgetMVC.Tests.Business
         [Test]
         public void InitialData_WithPeriodicRevenue_PeriodRevenueNotValidYet()
         {
-            InsertContribution(DateTime.Today.AddMonths(2), 1560, 0.78);
+            InsertContribution(DateTime.Today.AddMonths(1), 1560, 0.78);
             Save();
-            var data = business.GetInitialData(month, year);
+            var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
             Assert.AreEqual(0, data.monthBalance);
             Assert.AreEqual(0, GetRevenueSum(ref data));
             Assert.AreEqual(0, GetExpensesSum(ref data));
