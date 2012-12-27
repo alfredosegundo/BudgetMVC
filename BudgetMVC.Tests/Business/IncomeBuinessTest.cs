@@ -14,12 +14,23 @@ namespace BudgetMVC.Tests.Business
         private BudgetContext db;
         private IncomeBusiness business;
 
+        [TestFixtureSetUp]
+        public void FixtureSetUp()
+        {
+            db = new BudgetContext();
+            business = new IncomeBusiness(db);
+        }
+
+        [TestFixtureTearDown]
+        public void FixtureTearDown()
+        {
+            db.Dispose();
+        }
+
         [SetUp]
         public void SetUp()
         {
-            db = new BudgetContext();
             db.Database.Delete();
-            business = new IncomeBusiness(db);
         }
 
         [Test]
