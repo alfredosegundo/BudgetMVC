@@ -1,10 +1,10 @@
-﻿function Monetary(json) {
+﻿var Monetary = function (json) {
     this.Description = json.Description;
     this.CreationDate = new Date(json.CreationDate).toLocaleDateString();
     this.Value = json.Value;
 }
 
-function IndexViewModel() {
+var IndexViewModel = function () {
     var self = this;
     self.currentMonth = ko.observable(getCurrentMonth());
     self.currentYear = ko.observable(getCurrentYear());
@@ -14,24 +14,26 @@ function IndexViewModel() {
 
     self.goPreviousMonth = function goPreviousMonth() {
         var previousMonth = self.currentMonth() - 1;
+        var previousYear = self.currentYear() - 1;
         if (previousMonth >= 0) {
             self.currentMonth(previousMonth);
         }
         else {
             self.currentMonth(11);
-            self.currentYear(self.currentYear() - 1);
+            self.currentYear(previousYear);
         }
         self.populate();
     }
 
     self.goNextMonth = function goNextMonth() {
         var nextMonth = self.currentMonth() + 1;
+        var nextYear = self.currentYear() + 1
         if (nextMonth >= 0 && nextMonth <= 11) {
             self.currentMonth(nextMonth);
         }
         else {
             self.currentMonth(0);
-            self.currentYear(self.currentYear() + 1);
+            self.currentYear(nextYear);
         }
         self.populate();
     }
@@ -91,7 +93,6 @@ function IndexViewModel() {
 var viewModel = new IndexViewModel();
 ko.applyBindings(viewModel);
 viewModel.populate();
-// 
 
 key('left', viewModel.goPreviousMonth);
 key('right', viewModel.goNextMonth);
