@@ -67,7 +67,7 @@ namespace BudgetMVC.Tests.Business
         }
 
         [Test]
-        public void InitialData_WithPeriodicRevenue_ValidPeriodRevenue()
+        public void InitialData_WithContribution_Valid()
         {
             InsertContribution(DateTime.Today.AddMonths(-1), 1560, 0.78);
             Save();
@@ -78,7 +78,7 @@ namespace BudgetMVC.Tests.Business
         }
 
         [Test]
-        public void InitialData_WithPeriodicRevenue_PeriodRevenueNotValidYet()
+        public void InitialData_WithContribution_NotValidYet()
         {
             InsertContribution(DateTime.Today.AddMonths(1), 1560, 0.78);
             Save();
