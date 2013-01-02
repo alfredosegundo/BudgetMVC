@@ -8,11 +8,11 @@ using BudgetMVC.Model.Entity;
 
 namespace BudgetMVC.Model.Business
 {
-    public class IncomeBusiness
+    public class DashboardBusiness
     {
         private BudgetContext db;
 
-        public IncomeBusiness(BudgetContext db)
+        public DashboardBusiness(BudgetContext db)
         {
             this.db = db;
         }

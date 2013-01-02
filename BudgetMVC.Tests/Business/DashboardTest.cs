@@ -9,16 +9,16 @@ using BudgetMVC.Model.DTO;
 namespace BudgetMVC.Tests.Business
 {
     [TestFixture]
-    public class IncomeBuinessTest
+    public class DashboardTest
     {
         private BudgetContext db;
-        private IncomeBusiness business;
+        private DashboardBusiness business;
 
         [TestFixtureSetUp]
         public void FixtureSetUp()
         {
             db = new BudgetContext();
-            business = new IncomeBusiness(db);
+            business = new DashboardBusiness(db);
         }
 
         [TestFixtureTearDown]
