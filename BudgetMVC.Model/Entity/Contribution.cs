@@ -13,5 +13,12 @@ namespace BudgetMVC.Model.Entity
         [Column(TypeName = "datetime2")]
         public DateTime InitialDate { get; set; }
         public DateTime? FinalDate { get; set; }
+        public double RealValue
+        {
+            get
+            {
+                return Value * ContributionFactor;
+            }
+        }
     }
 }

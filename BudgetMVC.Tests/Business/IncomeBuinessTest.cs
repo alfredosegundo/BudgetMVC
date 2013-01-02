@@ -34,7 +34,7 @@ namespace BudgetMVC.Tests.Business
         }
 
         [Test]
-        public void InitialData_Empty()
+        public void Empty()
         {
             var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
             Assert.AreEqual(0, data.monthBalance);
@@ -43,10 +43,10 @@ namespace BudgetMVC.Tests.Business
         }
 
         [Test]
-        public void InitialData_MonthBalance_Positive()
+        public void PositiveBalance()
         {
-            InsertRevenue(120.0);
-            InsertExpense(73.48);
+            Insert(new Revenue { Value = 120.0 });
+            Insert(new Expense { Value = 73.48 });
             Save();
             var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
             Assert.AreEqual(120 - 73.48, data.monthBalance);
@@ -55,10 +55,10 @@ namespace BudgetMVC.Tests.Business
         }
 
         [Test]
-        public void InitialData_MonthBalance_Negative()
+        public void NegativeBalance()
         {
-            InsertRevenue(35.98);
-            InsertExpense(73.48);
+            Insert(new Revenue { Value = 35.98 });
+            Insert(new Expense { Value = 73.48 });
             Save();
             var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
             Assert.AreEqual(35.98 - 73.48, data.monthBalance);
@@ -67,30 +67,36 @@ namespace BudgetMVC.Tests.Business
         }
 
         [Test]
-        public void InitialData_WithContribution_Valid()
+        public void ContributionAddedSinceLastMonth()
         {
-            InsertContribution(DateTime.Today.AddMonths(-1), 1560, 0.78);
+            var lastMonth = DateTime.Today.AddMonths(-1);
+            InsertContribution(new Contribution { InitialDate = lastMonth, Value = 1560, ContributionFactor = 0.78 });
+            Insert(new Revenue { Value = 120.0 });
+            Insert(new Expense { Value = 73.48 });
             Save();
             var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
-            Assert.AreEqual(1560 * 0.78, data.monthBalance);
-            Assert.AreEqual(1560 * 0.78, GetRevenueSum(ref data));
-            Assert.AreEqual(0, GetExpensesSum(ref data));
+            Assert.AreEqual(1263.32, data.monthBalance);
+            Assert.AreEqual(1336.80, GetRevenueSum(ref data));
+            Assert.AreEqual(73.48, GetExpensesSum(ref data));
         }
 
         [Test]
-        public void InitialData_WithContribution_NotValidYet()
+        public void ContributionNotValidYet()
         {
-            InsertContribution(DateTime.Today.AddMonths(1), 1560, 0.78);
+            var nextMonth = DateTime.Today.AddMonths(1);
+            InsertContribution(new Contribution { InitialDate = nextMonth, Value = 1560, ContributionFactor = 0.78 });
+            Insert(new Revenue { Value = 120.0 });
+            Insert(new Expense { Value = 73.48 });
             Save();
             var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
-            Assert.AreEqual(0, data.monthBalance);
-            Assert.AreEqual(0, GetRevenueSum(ref data));
-            Assert.AreEqual(0, GetExpensesSum(ref data));
+            Assert.AreEqual(120.0 - 73.48, data.monthBalance);
+            Assert.AreEqual(120.0, GetRevenueSum(ref data));
+            Assert.AreEqual(73.48, GetExpensesSum(ref data));
         }
 
-        private void InsertRevenue(double revenueValue)
+        private void Insert<T>(T entity) where T : BudgetEntity
         {
-            db.Revenues.Add(new Revenue { Description = "Any", Value = revenueValue });
+            db.Set<T>().Add(entity);
         }
 
         private void Save()
@@ -98,16 +104,12 @@ namespace BudgetMVC.Tests.Business
             db.SaveChanges();
         }
 
-        private void InsertExpense(double value)
-        {
-            db.Expenses.Add(new Expense { Description = "Any", Value = value });
-        }
-
-        private void InsertContribution(DateTime initialDate, int value, double factor)
+        private void InsertContribution(Contribution contribution)
         {
             var alfredo = new Contributor { Name = "Alfredo" };
-            db.Contributors.Add(alfredo);
-            db.Contributions.Add(new Contribution { Contributor = alfredo, InitialDate = initialDate, Value = value, ContributionFactor = factor });
+            Insert(alfredo);
+            contribution.Contributor = alfredo;
+            Insert(contribution);
         }
 
         private static double GetRevenueSum(ref InitialData data)
