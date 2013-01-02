@@ -13,33 +13,27 @@
 <div class="row">
     <div class="twelve columns">
         <div class="row">
-            <div class="six columns centered">
+            <div class="twelve columns centered-text balance">
                 <h3>
-                    Monthly Budget -
                     <!--ko text: currentMonthName -->
                     <!--/ko-->
+                    -
                     <!--ko text: currentYear -->
+                    <!--/ko-->
+                    -
+                    <!--ko text: currentMonthBalance -->
                     <!--/ko-->
                 </h3>
             </div>
         </div>
         <div class="row content">
             <div class="twelve columns">
-                <div class="row balance">
-                    <div class="four columns centered">
-                        <span class="subheader">Balance: </span><span class="subheader" data-bind="text: currentMonthBalance">
-                        </span>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="six columns">
                         <div class="row">
-                            <div class="ten columns">
+                            <div class="twelve columns">
                                 <h4>
                                     Revenue</h4>
-                            </div>
-                            <div class="two columns centered">
-                                <a href="#" class="tiny button" data-bind="click: newRenevue">New</a>
                             </div>
                         </div>
                         <table>
@@ -70,12 +64,9 @@
                     </div>
                     <div class="six columns">
                         <div class="row">
-                            <div class="ten columns">
+                            <div class="twelve columns">
                                 <h4>
                                     Expenses</h4>
-                            </div>
-                            <div class="two columns">
-                                <a href="#" class="tiny button" data-bind="click: newExpense">New</a>
                             </div>
                         </div>
                         <table>

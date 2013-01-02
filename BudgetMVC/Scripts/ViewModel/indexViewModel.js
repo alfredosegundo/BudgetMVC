@@ -65,7 +65,7 @@ var IndexViewModel = function () {
         $("#newExpenses").trigger('reveal:close');
     }
 
-    self.newRenevue = function newRenevue() {
+    self.newRevenue = function newRevenue() {
         $("#newRevenues").reveal();
         $("#newRevenues form input:first").focus();
     }
@@ -80,13 +80,14 @@ var IndexViewModel = function () {
     });
 
     ko.computed(function () {
+        var target = $('div.balance h3');
         if (self.currentMonthBalance() >= 0.0) {
-            $('div.balance span').addClass('positive');
-            $('div.balance span').removeClass('negative');
+            target.addClass('positive');
+            target.removeClass('negative');
         }
         else {
-            $('div.balance span').addClass('negative');
-            $('div.balance span').removeClass('positive');            
+            target.addClass('negative');
+            target.removeClass('positive');
         }
     });
 };
