@@ -14,7 +14,7 @@ namespace BudgetMVC.ConsoleTest
         {
             using (var db = new BudgetContext())
             {
-                db.Expenses.Add(new Expense { Description = DateTime.Now.ToLongDateString(), Value = DateTime.Now.Second * 0.38 });
+                db.Expenses.Add(new Expense { Date = DateTime.Now, Description = DateTime.Now.ToLongDateString(), Value = DateTime.Now.Second * 0.38 });
                 db.SaveChanges();
                 var query = from expense in db.Expenses
                             orderby expense.CreationDate

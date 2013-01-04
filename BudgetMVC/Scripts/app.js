@@ -18,13 +18,22 @@ var opts = {
 spinner = new Spinner(opts);
 
 $('body').ajaxSend(function (e, jqxhr, settings) {
-    settings.url = CONTEXT + settings.url;
+    //settings.url = CONTEXT + settings.url;
 }).ajaxStart(function () {
     $('.content').append($('.loading'));
-    $('.loading').css({'width' : $('.content').width(), 'height' : $('.content').height() * 2});
+    $('.loading').css({ 'width': $('.content').width(), 'height': $('.content').height() * 2 });
     $('.loading').show();
     spinner.spin(document.getElementById('loading'));
 }).ajaxStop(function () {
     spinner.stop();
     $('.loading').hide();
+});
+
+
+$(function () {
+    $("form").each(function (index) {
+        var validator = $(this).data('validator');
+        validator.settings.errorClass = "error",
+        validator.settings.errorElement = "small"
+    });
 });

@@ -1,4 +1,6 @@
-﻿<div class="row">
+﻿@model BudgetMVC.ViewModels.IndexViewModel
+
+<div class="row">
 	<div class="one columns">
 		<h2><img src="@Url.Content("~/Content/images/graph.png")" alt="System icon" /></h2>
 	</div>
@@ -105,12 +107,7 @@
         Create new Revenue.</p>
     <form>
     <fieldset>
-        <label for="Description">
-            Description</label>
-        <input type="text" name="Description" id="RevenueDescription" />
-        <label for="Value">
-            Value</label>
-        <input type="text" name="Value" id="RevenueValue" value="" />
+        @Html.EditorForModel()
     </fieldset>
     </form>
     <a href="#" class="tiny button" data-bind="click: saveRevenue">Save</a>
@@ -133,5 +130,6 @@
 @section Scripts {
     @Scripts.Render("~/Scripts/util/date.helper.js")
     @Scripts.Render("~/Scripts/keymaster.min.js")
+    @Scripts.Render("~/bundles/pickadate")
     @Scripts.Render("~/Scripts/ViewModel/IndexViewModel.js")
 }

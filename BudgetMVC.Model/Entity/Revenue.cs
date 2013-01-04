@@ -7,5 +7,6 @@ namespace BudgetMVC.Model.Entity
 {
     public class Revenue : MonetaryEntity
     {
+        public DateTime Date { get; set; }
     }
 }

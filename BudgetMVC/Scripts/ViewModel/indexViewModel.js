@@ -42,7 +42,7 @@ var IndexViewModel = function () {
         self.revenues([]);
         self.expenses([]);
         self.currentMonthBalance(0.0);
-        $.getJSON("Home/InitialData", { month: self.currentMonth() + 1, year: self.currentYear() },
+        $.getJSON('Home/InitialData', { month: self.currentMonth() + 1, year: self.currentYear() },
             function (data) {
                 data = JSON.parse(data);
                 for (var revenuesIndex in data.revenues) {
@@ -56,23 +56,33 @@ var IndexViewModel = function () {
     };
 
     self.newExpense = function newExpense() {
-        $("#newExpenses").reveal();
-        $("#newExpenses form input:first").focus();
+        $('#newExpenses').reveal();
+        $('#newExpenses form input:first').focus();
     }
 
     self.saveExpense = function saveExpense() {
-        $.post('Expenses/Create', $("#newExpenses form").serialize(), function () { self.populate(); });
-        $("#newExpenses").trigger('reveal:close');
+        var form = $('#newExpenses form');
+        if(form.valid())
+        {
+            $.post('Expenses/Create', form.serialize(), function () { self.populate(); });
+            $('#newExpenses').trigger('reveal:close');
+            form.find('input').val('');
+        }
     }
 
     self.newRevenue = function newRevenue() {
-        $("#newRevenues").reveal();
-        $("#newRevenues form input:first").focus();
+        $('#newRevenues').reveal();
+        $('#newRevenues form input:first').focus();
     }
 
     self.saveRevenue = function saveRevenue() {
-        $.post('Revenues/Create', $("#newRevenues form").serialize(), function () { self.populate(); });
-        $("#newRevenues").trigger('reveal:close');
+        var form = $('#newRevenues form');
+        if(form.valid())
+        {
+            $.post('Revenues/Create', form.serialize(), function () { self.populate(); });
+            $('#newRevenues').trigger('reveal:close');
+            form.find('input').val('');
+        }
     }
 
     self.currentMonthName = ko.computed(function computeMonthName() {
@@ -97,3 +107,4 @@ viewModel.populate();
 
 key('left', viewModel.goPreviousMonth);
 key('right', viewModel.goNextMonth);
+$('form input[type="datetime"]').pickadate();
