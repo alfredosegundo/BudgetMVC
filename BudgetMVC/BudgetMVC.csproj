@@ -150,6 +150,7 @@
     <Content Include="Content\images\foundation\orbit\right-arrow.png" />
     <Content Include="Content\images\foundation\orbit\rotator-black.png" />
     <Content Include="Content\images\foundation\orbit\timer-black.png" />
+    <Content Include="Content\images\graph.png" />
     <Content Include="Content\pickadate\pickadate.01.default.css" />
     <Content Include="favicon.ico" />
     <Content Include="Foundation_readme.txt" />
