@@ -1,131 +1,176 @@
 ﻿@model BudgetMVC.ViewModels.IndexViewModel
-
-<div class="row">
-	<div class="one columns">
-		<h2><img src="@Url.Content("~/Content/images/graph.png")" alt="System icon" /></h2>
-	</div>
-    <div class="eleven columns">
-        <h2>
-            BudgetMVC</h2>
-        <p>
-            Good finacial management makes dreams come true.</p>
+<div class="row header">
+    <div class="appTitle">
+        <div class="one mobile-one columns">
+            <h2>
+                <img src="@Url.Content("~/Content/images/graph.png")" alt="System icon" /></h2>
+        </div>
+        <div class="eleven mobile-three columns">
+            <h2>
+                BudgetMVC</h2>
+            <p>
+                Good finacial management makes dreams come true.</p>
+        </div>
     </div>
-	<hr />
-</div>
-<div class="row">
-    <div class="twelve columns">
+    <div class="newRevenues" style="display: none;">
         <div class="row">
-            <div class="twelve columns centered-text balance">
+            <div class="six mobile-four columns">
                 <h3>
-                    <!--ko text: currentMonthName -->
-                    <!--/ko-->
-                    -
-                    <!--ko text: currentYear -->
-                    <!--/ko-->
-                    -
-                    <!--ko text: currentMonthBalance -->
-                    <!--/ko-->
-                </h3>
+                    Create new Revenue</h3>
+                <form>
+                <fieldset>
+                    @Html.LabelFor(model => model.Description)
+                    @Html.EditorFor(model => model.Description)
+                    <div class="row collapse">
+                        <div class="two mobile-one columns">
+                            <span class="prefix">R$</span>
+                        </div>
+                        <div class="ten mobile-three columns">
+                            @Html.EditorFor(model => model.Value)
+                        </div>
+                    </div>
+                    @Html.LabelFor(model => model.Date)
+                    @Html.EditorFor(model => model.Date)
+                </fieldset>
+                </form>
+                <ul class="button-group even two-up">
+                    <li><a href="#" class="small button" data-bind="click: saveRevenue">Save</a></li>
+                    <li><a href="#" class="small button" data-bind="click: cancelRevenue">Cancel</a></li>
+                </ul>
             </div>
         </div>
-        <div class="row content">
-            <div class="twelve columns">
-                <div class="row">
-                    <div class="six columns">
-                        <div class="row">
-                            <div class="twelve columns">
-                                <h4>
-                                    Revenue</h4>
-                            </div>
+    </div>
+    <div class="newExpenses" style="display: none;">
+        <div class="row">
+            <div class="six mobile-four columns">
+                <h3>
+                    Create new Expenses</h3>
+                <form>
+                <fieldset>
+                    @Html.LabelFor(model => model.Description)
+                    @Html.EditorFor(model => model.Description)
+                    <div class="row collapse">
+                        <div class="two mobile-one columns">
+                            <span class="prefix">R$</span>
                         </div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Description
-                                    </th>
-                                    <th>
-                                        Value
-                                    </th>
-                                    <th>
-                                        Creation Date
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody data-bind="foreach: revenues">
-                                <tr>
-                                    <td data-bind="text: Description">
-                                    </td>
-                                    <td data-bind="text: Value">
-                                    </td>
-                                    <td data-bind="text: CreationDate">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="ten mobile-three columns">
+                            @Html.EditorFor(model => model.Value)
+                        </div>
                     </div>
-                    <div class="six columns">
-                        <div class="row">
-                            <div class="twelve columns">
-                                <h4>
-                                    Expenses</h4>
-                            </div>
-                        </div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Description
-                                    </th>
-                                    <th>
-                                        Value
-                                    </th>
-                                    <th>
-                                        Creation Date
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody data-bind="foreach: expenses">
-                                <tr>
-                                    <td data-bind="text: Description">
-                                    </td>
-                                    <td data-bind="text: Value">
-                                    </td>
-                                    <td data-bind="text: CreationDate">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    @Html.LabelFor(model => model.Date)
+                    @Html.EditorFor(model => model.Date)
+                </fieldset>
+                </form>
+                <ul class="button-group even two-up">
+                    <li><a href="#" class="small button" data-bind="click: saveExpense">Save</a></li>
+                    <li><a href="#" class="small button" data-bind="click: cancelExpense">Cancel</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+<div class="row">
+    <div class="twelve mobile-four columns">
+        <div class="row">
+            <div class="twelve columns centered-text balance">
+                <div class="row">
+                    <div class="one mobile-one columns">
+                        <ul class="button-group even two-up">
+                            <li><a href="#" class="button" data-bind="click: goPreviousMonth"><</a> </li>
+                        </ul>
+                    </div>
+                    <div class="ten mobile-two columns">
+                        <h3>
+                            <!--ko text: currentMonthName -->
+                            <!--/ko-->
+                            -
+                            <!--ko text: currentYear -->
+                            <!--/ko-->
+                            -
+                            <!--ko text: currentMonthBalance -->
+                            <!--/ko-->
+                        </h3>
+                    </div>
+                    <div class="one mobile-one columns">
+                        <ul class="button-group even two-up">
+                            <li>
+                                <a href="#" class="button" data-bind="click: goNextMonth">></a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="six columns">
+                <div class="row">
+                    <div class="twelve columns">
+                        <h4>
+                            Revenues</h4>
+                    </div>
+                </div>
+                <table class="twelve">
+                    <thead>
+                        <tr>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Value
+                            </th>
+                            <th>
+                                Creation Date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: revenues">
+                        <tr>
+                            <td data-bind="text: Description">
+                            </td>
+                            <td data-bind="text: Value">
+                            </td>
+                            <td data-bind="text: CreationDate">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="six columns">
+                <div class="row">
+                    <div class="twelve columns">
+                        <h4>
+                            Expenses</h4>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Value
+                            </th>
+                            <th>
+                                Creation Date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: expenses">
+                        <tr>
+                            <td data-bind="text: Description">
+                            </td>
+                            <td data-bind="text: Value">
+                            </td>
+                            <td data-bind="text: CreationDate">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
-<div id="newRevenues" class="reveal-modal">
-    <p class="validateTips">
-        Create new Revenue.</p>
-    <form>
-    <fieldset>
-        @Html.EditorForModel()
-    </fieldset>
-    </form>
-    <a href="#" class="tiny button" data-bind="click: saveRevenue">Save</a>
-</div>
-<div id="newExpenses" class="reveal-modal">
-    <p class="validateTips">
-        Create new Expenses.</p>
-    <form>
-    <fieldset>
-        <label for="Description">
-            Description</label>
-        <input type="text" name="Description" id="ExpenseDescription" />
-        <label for="Value">
-            Value</label>
-        <input type="text" name="Value" id="ExpenseValue" value="" />
-    </fieldset>
-    </form>
-    <a href="#" class="tiny button" data-bind="click: saveExpense">Save</a>
 </div>
 @section Scripts {
     @Scripts.Render("~/Scripts/util/date.helper.js")

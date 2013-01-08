@@ -1,6 +1,4 @@
-﻿CONTEXT = 'http://turing/BudgetMVC/';
-
-var opts = {
+﻿var opts = {
     lines: 13, // The number of lines to draw
     length: 7, // The length of each line
     width: 4, // The line thickness
@@ -18,7 +16,7 @@ var opts = {
 spinner = new Spinner(opts);
 
 $('body').ajaxSend(function (e, jqxhr, settings) {
-    //settings.url = CONTEXT + settings.url;
+    settings.url = CONTEXT + settings.url;
 }).ajaxStart(function () {
     $('.content').append($('.loading'));
     $('.loading').css({ 'width': $('.content').width(), 'height': $('.content').height() * 2 });

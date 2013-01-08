@@ -56,32 +56,34 @@ var IndexViewModel = function () {
     };
 
     self.newExpense = function newExpense() {
-        $('#newExpenses').reveal();
-        $('#newExpenses form input:first').focus();
+        showForm('.newExpenses');
+    }
+
+    self.cancelExpense = function cancelExpense() {
+        hideForm('.newExpenses');
     }
 
     self.saveExpense = function saveExpense() {
-        var form = $('#newExpenses form');
-        if(form.valid())
-        {
+        var form = $('.newExpenses form');
+        if (form.valid()) {
             $.post('Expenses/Create', form.serialize(), function () { self.populate(); });
-            $('#newExpenses').trigger('reveal:close');
-            form.find('input').val('');
+            hideForm('.newExpenses');
         }
     }
 
     self.newRevenue = function newRevenue() {
-        $('#newRevenues').reveal();
-        $('#newRevenues form input:first').focus();
+        showForm('.newRevenues');
+    }
+
+    self.cancelRevenue = function cancelRevenue() {
+        hideForm('.newRevenues');
     }
 
     self.saveRevenue = function saveRevenue() {
-        var form = $('#newRevenues form');
-        if(form.valid())
-        {
+        var form = $('.newRevenues form');
+        if (form.valid()) {
             $.post('Revenues/Create', form.serialize(), function () { self.populate(); });
-            $('#newRevenues').trigger('reveal:close');
-            form.find('input').val('');
+            hideForm('.newRevenues');
         }
     }
 
@@ -105,6 +107,24 @@ var viewModel = new IndexViewModel();
 ko.applyBindings(viewModel);
 viewModel.populate();
 
+function showForm(formSelector) {
+    $('nav.top-bar').removeAttr('style').removeClass('expanded');
+    $('.appTitle').fadeOut('fast', function () {
+        $(formSelector).fadeIn();
+    });
+    $(formSelector + ' form input:first').focus();
+}
+
+function hideForm(formSelector) {
+    $(formSelector).slideUp('fast', function () {
+        if ($('.header > div').filter(":visible").length == 0) {
+            $('.appTitle').fadeIn('fast');
+        }
+    });
+    $(formSelector + ' form').find('input').val('');
+}
+
 key('left', viewModel.goPreviousMonth);
 key('right', viewModel.goNextMonth);
-$('form input[type="datetime"]').pickadate();
+
+$('form input[type="datetime"]').pickadate({ disablePicker: Modernizr.touch });
