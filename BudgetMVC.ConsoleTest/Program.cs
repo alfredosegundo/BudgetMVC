@@ -5,6 +5,7 @@ using System.Text;
 using BudgetMVC.Model.EntityFramework;
 using BudgetMVC.Model.Entity;
 using BudgetMVC.Model.Entity.Enum;
+using System.Data.Entity.Migrations;
 
 namespace BudgetMVC.ConsoleTest
 {
@@ -14,7 +15,8 @@ namespace BudgetMVC.ConsoleTest
         {
             using (var db = new BudgetContext())
             {
-                db.Expenses.Add(new Expense { Date = DateTime.Now, Description = DateTime.Now.ToLongDateString(), Value = DateTime.Now.Second * 0.38 });
+                db.Database.Delete();
+                db.Expenses.Add(new Expense { Description = DateTime.Now.ToLongDateString(), Value = DateTime.Now.Second * 0.38 });
                 db.SaveChanges();
                 var query = from expense in db.Expenses
                             orderby expense.CreationDate
@@ -30,6 +32,8 @@ namespace BudgetMVC.ConsoleTest
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();
             }
+
         }
+
     }
 }

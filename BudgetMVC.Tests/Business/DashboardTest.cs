@@ -5,79 +5,56 @@ using BudgetMVC.Model.Entity;
 using BudgetMVC.Model.EntityFramework;
 using NUnit.Framework;
 using BudgetMVC.Model.DTO;
+using System.Data.Entity.Infrastructure;
+using System.Data.Objects;
 
 namespace BudgetMVC.Tests.Business
 {
     [TestFixture]
-    public class DashboardTest
+    public class DashboardTest : PersistentTest
     {
-        private BudgetContext db;
-        private DashboardBusiness business;
-
-        [TestFixtureSetUp]
-        public void FixtureSetUp()
-        {
-            db = new BudgetContext();
-            business = new DashboardBusiness(db);
-        }
-
-        [TestFixtureTearDown]
-        public void FixtureTearDown()
-        {
-            db.Dispose();
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-            db.Database.Delete();
-        }
-
         [Test]
         public void Empty()
         {
             var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
-            Assert.AreEqual(0, data.monthBalance);
-            Assert.AreEqual(0, data.expenses.Count());
-            Assert.AreEqual(0, data.revenues.Count());
+            
+            Assert.That(0, Is.EqualTo(data.monthBalance));
+            Assert.That(0, Is.EqualTo(data.expenses.Count()));
+            Assert.That(0, Is.EqualTo(data.revenues.Count()));
         }
 
         [Test]
         public void PositiveBalance()
         {
-            Insert(new Revenue { Value = 120.0 });
-            Insert(new Expense { Value = 73.48 });
-            Save();
+            revenueBusiness.Insert(new Revenue { Value = 120.0 });
+            expenseBusiness.Insert(new Expense { Value = 73.48 });
+            
             var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
-            Assert.AreEqual(120 - 73.48, data.monthBalance);
-            Assert.AreEqual(120, GetRevenueSum(ref data));
-            Assert.AreEqual(73.48, GetExpensesSum(ref data));
+
+            Assert.That(data.monthBalance, Is.EqualTo(120 - 73.48));
         }
 
         [Test]
         public void NegativeBalance()
         {
-            Insert(new Revenue { Value = 35.98 });
-            Insert(new Expense { Value = 73.48 });
-            Save();
+            revenueBusiness.Insert(new Revenue { Value = 35.98 });
+            expenseBusiness.Insert(new Expense { Value = 73.48 });
+
             var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
-            Assert.AreEqual(35.98 - 73.48, data.monthBalance);
-            Assert.AreEqual(35.98, GetRevenueSum(ref data));
-            Assert.AreEqual(73.48, GetExpensesSum(ref data));
+
+            Assert.That(data.monthBalance, Is.EqualTo(35.98 - 73.48));
         }
 
         [Test]
         public void ContributionAddedSinceLastMonth()
         {
             var lastMonth = DateTime.Today.AddMonths(-1);
-            InsertContribution(new Contribution { InitialDate = lastMonth, Value = 1560, ContributionFactor = 0.78 });
-            Insert(new Revenue { Value = 120.0 });
-            Insert(new Expense { Value = 73.48 });
-            Save();
+            var contribution = new Contribution { InitialDate = lastMonth, Value = 1560, ContributionFactor = 0.78 };
+            InsertContribution(contribution);
+            
             var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
-            Assert.AreEqual(1263.32, data.monthBalance);
-            Assert.AreEqual(1336.80, GetRevenueSum(ref data));
-            Assert.AreEqual(73.48, GetExpensesSum(ref data));
+
+            Assert.That(data.monthBalance, Is.EqualTo(contribution.RealValue));
         }
 
         [Test]
@@ -85,31 +62,57 @@ namespace BudgetMVC.Tests.Business
         {
             var nextMonth = DateTime.Today.AddMonths(1);
             InsertContribution(new Contribution { InitialDate = nextMonth, Value = 1560, ContributionFactor = 0.78 });
-            Insert(new Revenue { Value = 120.0 });
-            Insert(new Expense { Value = 73.48 });
-            Save();
+
             var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
-            Assert.AreEqual(120.0 - 73.48, data.monthBalance);
-            Assert.AreEqual(120.0, GetRevenueSum(ref data));
-            Assert.AreEqual(73.48, GetExpensesSum(ref data));
+
+            Assert.That(data.monthBalance, Is.EqualTo(0));
         }
 
-        private void Insert<T>(T entity) where T : BudgetEntity
+        [Test]
+        public void TwoContributorsSinceLastMonth()
         {
-            db.Set<T>().Add(entity);
+            var lastMonth = DateTime.Today.AddMonths(-1);
+            var contrib1 = new Contribution { InitialDate = lastMonth, Value = 1560, ContributionFactor = 0.78 };
+            var contrib2 = new Contribution { InitialDate = lastMonth, Value = 1560, ContributionFactor = 0.78, Contributor = new Contributor { Name = "Ana" } };
+            InsertContribution(contrib1);
+            InsertContribution(contrib2);
+
+            var data = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year);
+
+            Assert.That(data.monthBalance, Is.EqualTo(contrib1.RealValue + contrib2.RealValue));
+            
         }
 
-        private void Save()
+        [Test]
+        public void TwoContributorsTwoContributions()
         {
-            db.SaveChanges();
+            var lastMonth = DateTime.Today.AddMonths(-1);
+            var twoMonthsAgo = DateTime.Today.AddMonths(-2);
+            var alfredoContrib = new Contribution { InitialDate = lastMonth, Value = 1560, ContributionFactor = 0.78 };
+            var anaFirstContrib = new Contribution { InitialDate = twoMonthsAgo, Value = 1560, ContributionFactor = 0.78 , Contributor = new Contributor { Name = "Ana" }};
+            var anaSecondContrib = new Contribution { InitialDate = lastMonth, Value = 1560, ContributionFactor = 0.78, Contributor = new Contributor { Name = "Ana" } };
+            InsertContribution(alfredoContrib);
+            InsertContribution(anaFirstContrib);
+            InsertContribution(anaSecondContrib);
+
+            var monthBalance = business.GetInitialData(DateTime.Today.Month, DateTime.Today.Year).monthBalance;
+            var expected = alfredoContrib.RealValue + anaSecondContrib.RealValue;
+
+            Assert.That(monthBalance, Is.EqualTo(expected));
         }
 
         private void InsertContribution(Contribution contribution)
         {
-            var alfredo = new Contributor { Name = "Alfredo" };
-            Insert(alfredo);
-            contribution.Contributor = alfredo;
-            Insert(contribution);
+            if (contribution.Contributor == null)
+            {
+                contribution.Contributor = new Contributor { Name = "Alfred" };
+            }
+            var contributor = contributorBusiness.GetByName(contribution.Contributor.Name);
+            if (contributor != null)
+            {
+                contribution.Contributor = contributor;
+            }
+            contributionBusiness.Insert(contribution);
         }
 
         private static double GetRevenueSum(ref InitialData data)

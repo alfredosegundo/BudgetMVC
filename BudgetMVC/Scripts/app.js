@@ -27,7 +27,6 @@ $('body').ajaxSend(function (e, jqxhr, settings) {
     $('.loading').hide();
 });
 
-
 $(function () {
     $("form").each(function (index) {
         var validator = $(this).data('validator');

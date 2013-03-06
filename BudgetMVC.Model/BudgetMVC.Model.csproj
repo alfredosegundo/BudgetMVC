@@ -45,7 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\BusinessEntity.cs" />
+    <Compile Include="Business\BusinessFactory.cs" />
+    <Compile Include="Business\ContributionBusiness.cs" />
+    <Compile Include="Business\ContributorBusiness.cs" />
     <Compile Include="Business\DashboardBusiness.cs" />
+    <Compile Include="Business\ExpenseBusiness.cs" />
+    <Compile Include="Business\PersistentBusiness.cs" />
+    <Compile Include="Business\RevenueBusiness.cs" />
     <Compile Include="DTO\InitialData.cs" />
     <Compile Include="EntityFramework\BudgetContext.cs">
       <SubType>Code</SubType>

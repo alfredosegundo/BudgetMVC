@@ -55,35 +55,51 @@ var IndexViewModel = function () {
             });
     };
 
+    self.newContribution = function newContribution() {
+        showForm('.newContribution');
+    }
+
+    self.saveContribution = function saveContribution() {
+        saveEntity('Contribution');
+    }
+
+    self.cancelContribution = function cancelContribution() {
+        hideForm('.newContribution');
+    }
+
     self.newExpense = function newExpense() {
-        showForm('.newExpenses');
+        showForm('.newExpense');
     }
 
     self.cancelExpense = function cancelExpense() {
-        hideForm('.newExpenses');
+        hideForm('.newExpense');
     }
 
     self.saveExpense = function saveExpense() {
-        var form = $('.newExpenses form');
+        var form = $('.newExpense form');
         if (form.valid()) {
-            $.post('Expenses/Create', form.serialize(), function () { self.populate(); });
-            hideForm('.newExpenses');
+            $.post('api/Expense/Put', form.serialize(), function () { self.populate(); });
+            hideForm('.newExpense');
         }
     }
 
     self.newRevenue = function newRevenue() {
-        showForm('.newRevenues');
+        showForm('.newRevenue');
     }
 
     self.cancelRevenue = function cancelRevenue() {
-        hideForm('.newRevenues');
+        hideForm('.newRevenue');
     }
 
     self.saveRevenue = function saveRevenue() {
-        var form = $('.newRevenues form');
+        saveEntity('Revenue');
+    }
+
+    function saveEntity(entityName) {
+        var form = $('.new' + entityName + ' form');
         if (form.valid()) {
-            $.post('Revenues/Create', form.serialize(), function () { self.populate(); });
-            hideForm('.newRevenues');
+            $.post('api/' + entityName + '/Put', form.serialize(), function () { self.populate(); });
+            hideForm('.new' + entityName);
         }
     }
 
@@ -103,6 +119,7 @@ var IndexViewModel = function () {
         }
     });
 };
+
 var viewModel = new IndexViewModel();
 ko.applyBindings(viewModel);
 viewModel.populate();

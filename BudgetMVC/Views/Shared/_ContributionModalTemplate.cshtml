@@ -1,0 +1,31 @@
+﻿@model BudgetMVC.ViewModels.ModalTemplateViewModel
+
+<div class="new@(Model.EntityName)" style="display: none;">
+    <div class="row">
+        <div class="six mobile-four columns">
+            <h3>
+                Create new @Model.EntityName</h3>
+            <form action="">
+            <fieldset>
+                <legend></legend>
+                @Html.LabelFor(model => model.Description)
+                @Html.EditorFor(model => model.Description)
+                <div class="row collapse">
+                    <div class="two mobile-one columns">
+                        <span class="prefix">R$</span>
+                    </div>
+                    <div class="ten mobile-three columns">
+                        @Html.EditorFor(model => model.Value)
+                    </div>
+                </div>
+                @Html.LabelFor(model => model.Date)
+                @Html.EditorFor(model => model.Date)
+            </fieldset>
+            </form>
+            <ul class="button-group even two-up">
+                <li><a href="#" class="small button" data-bind="click: save@(Model.EntityName)">Save</a></li>
+                <li><a href="#" class="small button" data-bind="click: cancel@(Model.EntityName)">Cancel</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -12,62 +12,9 @@
                 Good finacial management makes dreams come true.</p>
         </div>
     </div>
-    <div class="newRevenues" style="display: none;">
-        <div class="row">
-            <div class="six mobile-four columns">
-                <h3>
-                    Create new Revenue</h3>
-                <form>
-                <fieldset>
-                    @Html.LabelFor(model => model.Description)
-                    @Html.EditorFor(model => model.Description)
-                    <div class="row collapse">
-                        <div class="two mobile-one columns">
-                            <span class="prefix">R$</span>
-                        </div>
-                        <div class="ten mobile-three columns">
-                            @Html.EditorFor(model => model.Value)
-                        </div>
-                    </div>
-                    @Html.LabelFor(model => model.Date)
-                    @Html.EditorFor(model => model.Date)
-                </fieldset>
-                </form>
-                <ul class="button-group even two-up">
-                    <li><a href="#" class="small button" data-bind="click: saveRevenue">Save</a></li>
-                    <li><a href="#" class="small button" data-bind="click: cancelRevenue">Cancel</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="newExpenses" style="display: none;">
-        <div class="row">
-            <div class="six mobile-four columns">
-                <h3>
-                    Create new Expenses</h3>
-                <form>
-                <fieldset>
-                    @Html.LabelFor(model => model.Description)
-                    @Html.EditorFor(model => model.Description)
-                    <div class="row collapse">
-                        <div class="two mobile-one columns">
-                            <span class="prefix">R$</span>
-                        </div>
-                        <div class="ten mobile-three columns">
-                            @Html.EditorFor(model => model.Value)
-                        </div>
-                    </div>
-                    @Html.LabelFor(model => model.Date)
-                    @Html.EditorFor(model => model.Date)
-                </fieldset>
-                </form>
-                <ul class="button-group even two-up">
-                    <li><a href="#" class="small button" data-bind="click: saveExpense">Save</a></li>
-                    <li><a href="#" class="small button" data-bind="click: cancelExpense">Cancel</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("_ModalTemplate", Model.RevenuesModalConfig)
+    @Html.Partial("_ModalTemplate", Model.ExpensesModalConfig)
+    @Html.Partial("_ContributionModalTemplate", Model.ContributionModalConfig)
     <hr />
 </div>
 <div class="row">
@@ -94,9 +41,7 @@
                     </div>
                     <div class="one mobile-one columns">
                         <ul class="button-group even two-up">
-                            <li>
-                                <a href="#" class="button" data-bind="click: goNextMonth">></a>
-                            </li>
+                            <li><a href="#" class="button" data-bind="click: goNextMonth">></a> </li>
                         </ul>
                     </div>
                 </div>

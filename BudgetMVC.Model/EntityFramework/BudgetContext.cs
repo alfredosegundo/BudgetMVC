@@ -11,9 +11,7 @@ namespace BudgetMVC.Model.EntityFramework
     public class BudgetContext : DbContext
     {
         public DbSet<Expense> Expenses { get; set; }
-        public DbSet<PeriodicExpense> PeriodicExpenses { get; set; }
         public DbSet<Revenue> Revenues { get; set; }
-        public DbSet<PeriodicRevenue> PeriodicRevenues { get; set; }
         public DbSet<Contribution> Contributions { get; set; }
         public DbSet<Contributor> Contributors { get; set; }
 

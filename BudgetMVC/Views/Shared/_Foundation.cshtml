@@ -31,14 +31,22 @@
         </ul>
         <section>
             <ul class="left">
+                <li class="has-dropdown"><a href="#">Contribution</a>
+                    <ul class="dropdown">
+                        <li><a href="#" data-bind="click: newContribution">New</a></li>
+                        <li>@Html.ActionLink("List","Index","Contribution")</li>
+                    </ul>
+                </li>
                 <li class="has-dropdown"><a href="#">Revenue</a>
                     <ul class="dropdown">
                         <li><a href="#" data-bind="click: newRevenue">New</a></li>
+                        <li>@Html.ActionLink("List", "Index", "Revenues")</li>
                     </ul>
                 </li>
                 <li class="has-dropdown"><a href="#">Expense</a>
                     <ul class="dropdown">
                         <li><a href="#" data-bind="click: newExpense">New</a></li>
+                        <li>@Html.ActionLink("List", "Index", "Expenses")</li>
                     </ul>
                 </li>
             </ul>

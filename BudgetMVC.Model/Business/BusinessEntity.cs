@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BudgetMVC.Model.Entity
+namespace BudgetMVC.Model.Business
 {
-    public class Revenue : MonetaryEntity
+    public class BusinessEntity
     {
     }
 }

@@ -103,7 +103,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\BusinessFactoryTest.cs" />
+    <Compile Include="Business\ContributionBusinessTest.cs" />
+    <Compile Include="Business\ContributorBusinessTest.cs" />
     <Compile Include="Business\DashboardTest.cs" />
+    <Compile Include="Business\PersistentTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

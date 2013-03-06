@@ -7,11 +7,9 @@ namespace BudgetMVC
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/pickadate").Include(
-           "~/Scripts/pickadate.*"));
+            bundles.Add(new ScriptBundle("~/bundles/pickadate").Include("~/Scripts/pickadate.*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/spin").Include(
-                       "~/Scripts/spin.*"));
+            bundles.Add(new ScriptBundle("~/bundles/spin").Include("~/Scripts/spin.*"));
 
             bundles.Add(new StyleBundle("~/Content/foundation/css").Include(
                        "~/Content/foundation/foundation.css",

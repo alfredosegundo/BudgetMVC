@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using BudgetMVC.Model.Entity;
 
 namespace BudgetMVC.ViewModels
 {
     public class IndexViewModel
     {
-        [Required]
-        public string Description { get; set; }
-        public DateTime Date { get; set; }
-        public double Value { get; set; }
+        public ModalTemplateViewModel ExpensesModalConfig = new ModalTemplateViewModel { EntityName = typeof(Expense).Name, Date = DateTime.Now };
+        public ModalTemplateViewModel RevenuesModalConfig = new ModalTemplateViewModel { EntityName = typeof(Revenue).Name, Date = DateTime.Now };
+        public ModalTemplateViewModel ContributionModalConfig = new ModalTemplateViewModel { EntityName = typeof(Contribution).Name, Date = DateTime.Now };
     }
 }

@@ -10,9 +10,6 @@ namespace BudgetMVC.Model.Entity
     {
         public Contributor Contributor { get; set; }
         public double ContributionFactor { get; set; }
-        [Column(TypeName = "datetime2")]
-        public DateTime InitialDate { get; set; }
-        public DateTime? FinalDate { get; set; }
         public double RealValue
         {
             get
@@ -20,5 +17,6 @@ namespace BudgetMVC.Model.Entity
                 return Value * ContributionFactor;
             }
         }
+        public DateTime InitialDate { get; set; }
     }
 }

@@ -11,10 +11,12 @@ namespace BudgetMVC.Model.Business
     public class DashboardBusiness
     {
         private BudgetContext db;
+        private ContributionBusiness contributionBusiness;
 
         public DashboardBusiness(BudgetContext db)
         {
             this.db = db;
+            this.contributionBusiness = new ContributionBusiness(db);
         }
 
         public InitialData GetInitialData(int month, int year)
@@ -38,7 +40,7 @@ namespace BudgetMVC.Model.Business
 
         private IEnumerable<Contribution> GetCurrentContributions(int month, int year)
         {
-            return db.Contributions.Where(contribution => contribution.FinalDate == null && contribution.InitialDate <= new DateTime(year,month,1)).ToList();
+            return contributionBusiness.GetCurrentContributions(month, year);
         }
     }
 }
