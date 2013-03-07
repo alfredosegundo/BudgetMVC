@@ -13,9 +13,11 @@ namespace BudgetMVC.Model.Business
 
         public IEnumerable<Contribution> GetCurrentContributions(int month, int year)
         {
-            return db.Contributions
-                .Where(contribution => contribution.InitialDate.Year <= year && contribution.InitialDate.Month <= month)
-                .OrderByDescending(c => c.CreationDate);
+            var query = from contributions in db.Contributions
+                        where contributions.InitialDate <= new DateTime(year, month, 1)
+                        group contributions by contributions.Contributor into g
+                        select g.OrderByDescending(c => c.InitialDate).FirstOrDefault();
+            return query.ToList();
         }
     }
 
