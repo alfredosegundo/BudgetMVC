@@ -20,17 +20,4 @@ namespace BudgetMVC.Model.Business
             return query.ToList();
         }
     }
-
-    class ContributorComparer : IEqualityComparer<Contribution>
-    {
-        public bool Equals(Contribution x, Contribution y)
-        {
-            return x.ID.Equals(y.ID);
-        }
-
-        public int GetHashCode(Contribution obj)
-        {
-            return obj.ID.GetHashCode();
-        }
-    }
 }
