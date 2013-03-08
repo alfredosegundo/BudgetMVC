@@ -6,6 +6,7 @@ using BudgetMVC.ViewModels;
 using BudgetMVC.Model.Entity;
 using System;
 using System.Data.Entity.Migrations;
+using System.Linq;
 
 namespace BudgetMVC.Controllers
 {
@@ -16,6 +17,8 @@ namespace BudgetMVC.Controllers
         public ActionResult Index()
         {
             var model = new IndexViewModel();
+            var list = db.Contributors.ToList();
+            model.ContributionViewModel.Contributors = new SelectList(list);
             return View(model);
         }
 

@@ -11,6 +11,7 @@ namespace BudgetMVC.ViewModels
     {
         public ModalTemplateViewModel ExpensesModalConfig = new ModalTemplateViewModel { EntityName = typeof(Expense).Name, Date = DateTime.Now };
         public ModalTemplateViewModel RevenuesModalConfig = new ModalTemplateViewModel { EntityName = typeof(Revenue).Name, Date = DateTime.Now };
-        public ModalTemplateViewModel ContributionModalConfig = new ModalTemplateViewModel { EntityName = typeof(Contribution).Name, Date = DateTime.Now };
+
+        public ContributionViewModel ContributionViewModel = new ContributionViewModel();
     }
 }

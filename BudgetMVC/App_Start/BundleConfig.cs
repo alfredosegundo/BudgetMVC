@@ -12,8 +12,7 @@ namespace BudgetMVC
             bundles.Add(new ScriptBundle("~/bundles/spin").Include("~/Scripts/spin.*"));
 
             bundles.Add(new StyleBundle("~/Content/foundation/css").Include(
-                       "~/Content/foundation/foundation.css",
-                       "~/Content/foundation/app.css"));
+                       "~/Content/foundation/*.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/foundation").Include(
                       "~/Scripts/foundation/foundation.*",
