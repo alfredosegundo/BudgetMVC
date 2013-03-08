@@ -9,23 +9,28 @@ using System.Web;
 using System.Web.Http;
 using BudgetMVC.Model.Entity;
 using BudgetMVC.Model.EntityFramework;
+using BudgetMVC.Model.Business;
 
 namespace BudgetMVC.Controllers
 {
     public class ContributionController : ApiController
     {
-        private BudgetContext db = new BudgetContext();
+        private ContributionBusiness contributionBusiness;
 
+        public ContributionController()
+        {
+            this.contributionBusiness = new ContributionBusiness(new BudgetContext());
+        }
         // GET api/Contribution
         public IEnumerable<Contribution> GetContributions()
         {
-            return db.Contributions.AsEnumerable();
+            return contributionBusiness.FindAll();
         }
 
         // GET api/Contribution/5
         public Contribution GetContribution(long id)
         {
-            Contribution contribution = db.Contributions.Find(id);
+            Contribution contribution = contributionBusiness.Find(id);
             if (contribution == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -39,11 +44,9 @@ namespace BudgetMVC.Controllers
         {
             if (ModelState.IsValid && id == contribution.ID)
             {
-                db.Entry(contribution).State = EntityState.Modified;
-
                 try
                 {
-                    db.SaveChanges();
+                    contributionBusiness.Update(contribution);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -63,9 +66,7 @@ namespace BudgetMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Contributions.Add(contribution);
-                db.SaveChanges();
-
+                contributionBusiness.Insert(contribution);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, contribution);
                 response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = contribution.ID }));
                 return response;
@@ -79,29 +80,22 @@ namespace BudgetMVC.Controllers
         // DELETE api/Contribution/5
         public HttpResponseMessage DeleteContribution(long id)
         {
-            Contribution contribution = db.Contributions.Find(id);
-            if (contribution == null)
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-
-            db.Contributions.Remove(contribution);
-
+            Contribution removedContribution;
             try
             {
-                db.SaveChanges();
+                removedContribution = contributionBusiness.RemoveById(id);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, contribution);
+            return Request.CreateResponse(HttpStatusCode.OK, removedContribution);
         }
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            contributionBusiness.Dispose();
             base.Dispose(disposing);
         }
     }

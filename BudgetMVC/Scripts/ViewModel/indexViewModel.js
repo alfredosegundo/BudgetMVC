@@ -98,7 +98,7 @@ var IndexViewModel = function () {
     function saveEntity(entityName) {
         var form = $('.new' + entityName + ' form');
         if (form.valid()) {
-            $.post('api/' + entityName + '/Put', form.serialize(), function () { self.populate(); });
+            $.post('api/' + entityName + '/Post', form.serialize(), function () { self.populate(); });
             hideForm('.new' + entityName);
         }
     }

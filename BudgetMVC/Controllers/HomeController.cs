@@ -17,8 +17,8 @@ namespace BudgetMVC.Controllers
         public ActionResult Index()
         {
             var model = new IndexViewModel();
-            var list = db.Contributors.ToList();
-            model.ContributionViewModel.Contributors = new SelectList(list);
+            var list = db.Contributors.ToList().Select(c => new SelectListItem { Text = c.Name, Value = c.ID.ToString() });
+            model.ContributionViewModel.Contributors = list;
             return View(model);
         }
 
@@ -33,6 +33,13 @@ namespace BudgetMVC.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
             return result;
+        }
+
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

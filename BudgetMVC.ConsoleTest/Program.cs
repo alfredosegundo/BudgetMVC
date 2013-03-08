@@ -16,17 +16,20 @@ namespace BudgetMVC.ConsoleTest
             using (var db = new BudgetContext())
             {
                 db.Database.Delete();
-                db.Expenses.Add(new Expense { Description = DateTime.Now.ToLongDateString(), Value = DateTime.Now.Second * 0.38 });
+                Console.WriteLine("[OK] Delete database");
+                db.Contributors.Add(new Contributor { Name = "Alfredo" });
+                db.Contributors.Add(new Contributor { Name = "Ana" });
                 db.SaveChanges();
-                var query = from expense in db.Expenses
-                            orderby expense.CreationDate
-                            select expense;
+                Console.WriteLine("[OK] Save changes");
+                var query = from c in db.Contributors
+                            orderby c.Name
+                            select c;
 
                 Console.WriteLine("Database: " + db.Database.Connection.ConnectionString);
-                Console.WriteLine("All expenses in the database:");
+                Console.WriteLine("All contributors in the database:");
                 foreach (var item in query)
                 {
-                    Console.WriteLine("Date: " + item.CreationDate);
+                    Console.WriteLine("Name: " + item.Name);
                 }
 
                 Console.WriteLine("Press any key to exit...");

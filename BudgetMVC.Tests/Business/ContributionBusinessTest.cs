@@ -54,6 +54,19 @@ namespace BudgetMVC.Tests.Business
 
             Assert.That(contributions.Count(), Is.EqualTo(2));
         }
+
+        [Test]
+        public void ValidContribution_SholdBeValid_InInitialDateMonth()
+        {
+            var currentMonth = new DateTime(2013,03,08);
+            var contribution1 = new Contribution { InitialDate = currentMonth, Value = 200, ContributionFactor = 0.5 };
+            InsertContribution(contribution1);
+
+            var contributions = contributionBusiness.GetCurrentContributions(currentMonth.Month, currentMonth.Year);
+
+            Assert.That(contributions.Count(), Is.EqualTo(1));
+        }
+      
       
 
         private void InsertContribution(Contribution contribution)

@@ -30,7 +30,7 @@ namespace BudgetMVC.Model.Business
 
         private IEnumerable<Revenue> CurrentContributionsAsRevenues(int month, int year)
         {
-            return GetCurrentContributions(month, year).Select(contribution => new Revenue { Description = contribution.Description, Value = contribution.Value * contribution.ContributionFactor, CreationDate = contribution.CreationDate });
+            return GetCurrentContributions(month, year).Select(contribution => new Revenue { Description = contribution.Description, Value = contribution.RealValue, CreationDate = contribution.CreationDate });
         }
 
         private IEnumerable<T> Find<T>(int month, int year) where T : EntityWithCreationDate

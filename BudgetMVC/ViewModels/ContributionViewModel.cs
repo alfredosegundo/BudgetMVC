@@ -15,6 +15,6 @@ namespace BudgetMVC.ViewModels
         public DateTime InitialDate { get; set; }
         public string Description { get; set; }
 
-        public SelectList Contributors { get; set; }
+        public IEnumerable<SelectListItem> Contributors { get; set; }
     }
 }
